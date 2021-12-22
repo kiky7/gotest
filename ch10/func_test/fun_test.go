@@ -55,3 +55,41 @@ func TestTimeSpent(t *testing.T)  {
 	tssFT := timeSpentT(slowFuc,10)
 	t.Log(tssFT)
 }
+
+
+//累加
+func Sum(op ...int) int {
+	re := 0
+	for _,v := range op{
+		re +=  v
+	}
+	return re
+}
+
+
+//可变长参数
+func TestVarParam(t *testing.T)  {
+	t.Log(Sum(1,2,3,4))
+	t.Log(Sum(1,2,3,4,5))
+}
+
+
+func Clear()  {
+	fmt.Println("清空资源")
+}
+
+//defer延迟执行、释放资源、是否锁
+func TestDefer(t *testing.T)  {
+	defer Clear()
+	fmt.Println("开始")
+	panic("err")//panic程序异常中断
+	//fmt.Println("结束")
+}
+
+
+
+
+
+
+
+
