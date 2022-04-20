@@ -32,9 +32,9 @@ func TestService(t *testing.T)  {
  * @return chan
  */
 func AsyncService() chan string {
-	//retCh := make(chan string)  //普通channel
-	retCh := make(chan string,1) //buf channel  channel取数不会阻塞
-	go func() {
+	//retCh := make(chan string)  //普通channel、会阻塞
+	retCh := make(chan string,1) //buf channel,增加容量参数  channel取数不会阻塞
+	go func() {  //协程运行，不阻塞当前协程
 		ret := service()
 		fmt.Println("returned result.")
 		retCh <- ret  //往channel存数据
@@ -44,8 +44,8 @@ func AsyncService() chan string {
 }
 
 func TestAsyncService(t *testing.T)  {
-	retCh := AsyncService()
-	otherTask()
+	retCh := AsyncService() //返回channel
+	otherTask()  //
 	fmt.Println(<-retCh) //channel取数据
 	time.Sleep(time.Second * 1)
 }
